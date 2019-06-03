@@ -1,0 +1,25 @@
+<p>This is the index text and now there's more
+</p>
+{{ scores.values }}
+<table border = "1px solid black">
+<th>ID</th>
+<th>reps</th>
+<th>weight</th>
+<th>minutes</th>
+<th>seconds</th>
+<th>workout id</th>
+<th>team id</th>
+
+{% for score in scores %}
+<tr>
+<td>
+{{score.id}}</td><td>
+{{score.reps}}</td><td>
+{{score.weight}}</td><td>
+{{score.minutes}}</td><td>
+{{score.seconds}}</td><td>
+{{score.workout_id}}</td><td>
+{{score.team_id}}</td>
+</tr>
+{% endfor %}
+<table>
