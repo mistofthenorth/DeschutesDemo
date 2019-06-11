@@ -1,7 +1,25 @@
-<p>This is the index text and now there's more
-</p>
-{{ scores.values }}
-<table border = "1px solid black">
+{% load static %}
+
+<!doctype html>
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+    <link rel="stylesheet" href="{% static "scoring/style.css" %}" rel="stylesheet" type="text/css" media="screen" />
+
+    <title>Deschutes Demo Scoring</title>
+  </head>
+<html lang="en">
+
+<div class="jumbotron">
+<h1 class="text-center">A Template for the Deschutes Demo Scoring System 2020
+</h1>
+</div>
+
+<table class="table">
 <th>ID</th>
 <th>reps</th>
 <th>weight</th>
@@ -22,4 +40,5 @@
 {{score.team_id}}</td>
 </tr>
 {% endfor %}
-<table>
+</table>
+</html>
