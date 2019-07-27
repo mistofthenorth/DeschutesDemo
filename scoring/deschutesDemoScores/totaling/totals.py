@@ -4,6 +4,7 @@ from deschutesDemoScores.models import Score
 def getSingleWorkoutTotal():
 	#TODO - update to work for single workouts when fully loaded
 	setOfScores = Score.objects.order_by('minutes','seconds','reps').all()
+	setOfScores = sorted(setOfScores, key=lambda x: (x.minutes, x.seconds, -int(x.reps or 0)))
 	listOfScores = []
 	rank = 1
 	for score in setOfScores:
@@ -24,12 +25,6 @@ def getSingleWorkoutTotal():
 			listOfScores[i].rank = listOfScores[i-1].rank
 		i += 1
 
-	#print(len(setOfScores))
-	#print(setOfScores)
-	#print(setOfScores[0].minutes)
-	#print(setOfScores[0].seconds)
-	#print(listOfScores[0].score)
-	#print(listOfScores[0].rank)
 	return listOfScores
 
 class orderedScore:
