@@ -1,9 +1,9 @@
 from django.db import models
 from deschutesDemoScores.models import Score
 
-def getSingleWorkoutTotal():
+def getSingleWorkoutTotal(workout):
 	#TODO - update to work for single workouts when fully loaded
-	setOfScores = Score.objects.all()
+	setOfScores = Score.objects.filter(workout = 6)
 	setOfScores = sorted(setOfScores, key=lambda x: (x.minutes, x.seconds, -int(x.reps or 0)))
 	listOfScores = []
 	rank = 1

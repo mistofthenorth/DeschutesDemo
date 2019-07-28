@@ -6,8 +6,8 @@ from .totaling import totals
 
 
 def index(request):
-    listOfScores = Score.objects.all()
     template = loader.get_template('scoring/index.html')
-    listOfScores = totals.getSingleWorkoutTotal()
+    #TODO: accept workout arguments
+    listOfScores = totals.getSingleWorkoutTotal(6)
     context = {'scores' : listOfScores}
     return HttpResponse(template.render(context, request))
