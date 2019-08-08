@@ -1,13 +1,14 @@
 from django.db import models
-from deschutesDemoScores.models import Score, Workout
+from deschutesDemoScores.models import Score, Workout, Team
 
-def getSingleWorkoutTotal(workout):
+def getSingleWorkoutTotal(workout, division):
 	#TODO - update to work for single workouts when fully loaded
-	workoutProperties = Workout.objects.get(id = 6)
+	workoutProperties = Workout.objects.get(id = workout)
 	print(workoutProperties)
 	print(workoutProperties.scoringStyle)
-	setOfScores = Score.objects.filter(workout = workoutProperties.id)
+	setOfScores = Score.objects.filter(workout = workoutProperties.id, team__division = division)
 	print(setOfScores[0].reps)
+	print(setOfScores[0].team.division.id)
 	#TODO - eliminate some repetition in the code if possible/reasonable
 	if workoutProperties.scoringStyle == 'T':
 		setOfScores = sorted(setOfScores, key=lambda x: (x.minutes, x.seconds, -int(x.reps or 0)))

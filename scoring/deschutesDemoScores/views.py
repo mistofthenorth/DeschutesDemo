@@ -11,7 +11,7 @@ def index(request):
     #TODO: accept workout arguments
     DDDataImport.importDDTeams()
     DDDataImport.importDDData()
-    listOfScores = totals.getSingleWorkoutTotal(6)
+    listOfScores = totals.getSingleWorkoutTotal(6,1)
 
     context = {'scores' : listOfScores}
     return HttpResponse(template.render(context, request))

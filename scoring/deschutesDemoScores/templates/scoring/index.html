@@ -22,7 +22,7 @@
 <table class="table">
 <th>Rank</th>
 <th>reps</th>
-<th>weight</th>
+<th>division</th>
 <th>minutes</th>
 <th>seconds</th>
 <th>workout id</th>
@@ -33,10 +33,10 @@
 <td>
 {{score.rank}}</td><td>
 {{score.score.reps}}</td><td>
-{{score.score.weight}}</td><td>
+{{score.score.team.division}}</td><td>
 {{score.score.minutes}}</td><td>
 {{score.score.seconds}}</td><td>
-{{score.score.workout_id}}</td><td>
+{{score.score.workout.description}}</td><td>
 {{score.score.team_id}}</td>
 </tr>
 {% endfor %}
