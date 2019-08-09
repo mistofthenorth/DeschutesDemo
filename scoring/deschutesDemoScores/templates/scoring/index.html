@@ -19,6 +19,13 @@
 </h1>
 </div>
 
+<form action="" method="post">
+	{% csrf_token %}
+    <input type="radio" name="workout" id="choice" value="6">
+    <label for="choice">Workout Number</label><br>
+    <input type="submit" value="Choose Workout">
+</form>
+
 <table class="table">
 <th>Rank</th>
 <th>reps</th>
