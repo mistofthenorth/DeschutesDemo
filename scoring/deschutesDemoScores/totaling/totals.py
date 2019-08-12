@@ -4,11 +4,11 @@ from deschutesDemoScores.models import Score, Workout, Team
 def getSingleWorkoutTotal(workout, division):
 	#TODO - update to work for single workouts when fully loaded
 	workoutProperties = Workout.objects.get(id = workout)
-	print(workoutProperties)
-	print(workoutProperties.scoringStyle)
+	#print(workoutProperties)
+	#print(workoutProperties.scoringStyle)
 	setOfScores = Score.objects.filter(workout = workoutProperties.id, team__division = division)
-	print(setOfScores[0].reps)
-	print(setOfScores[0].team.division.id)
+	#print(setOfScores[0].reps)
+	#print(setOfScores[0].team.division.id)
 	#TODO - eliminate some repetition in the code if possible/reasonable
 	if workoutProperties.scoringStyle == 'T':
 		setOfScores = sorted(setOfScores, key=lambda x: (x.minutes, x.seconds, -int(x.reps or 0)))
@@ -21,7 +21,7 @@ def getSingleWorkoutTotal(workout, division):
 		i = 0
 		#tie breaks - should clean up
 		for score in listOfScores:
-			print(listOfScores[i])
+			#print(listOfScores[i])
 			isTie = False
 			if i > 1:
 				if listOfScores[i].score.minutes == listOfScores[i-1].score.minutes:
@@ -42,7 +42,7 @@ def getSingleWorkoutTotal(workout, division):
 			rank += 1
 		i = 0
 		for score in listOfScores:
-			print(listOfScores[i])
+			#print(listOfScores[i])
 			isTie = False
 			if i > 1:
 				if listOfScores[i].score.reps == listOfScores[i-1].score.reps:
@@ -61,7 +61,7 @@ def getSingleWorkoutTotal(workout, division):
 			rank += 1
 		i = 0
 		for score in listOfScores:
-			print(listOfScores[i])
+			#print(listOfScores[i])
 			isTie = False
 			if i > 1:
 				if listOfScores[i].score.weight == listOfScores[i-1].score.weight:

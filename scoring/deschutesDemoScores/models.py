@@ -7,7 +7,6 @@ class Event(models.Model):
 
 class Workout(models.Model):
 	description = models.CharField(max_length=100)
-	reps = models.IntegerField()
 	scoringStyleChoices = (
 					('W', 'weight'),
 					('R', 'reps'),

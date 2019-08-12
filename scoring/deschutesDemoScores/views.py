@@ -13,12 +13,14 @@ def index(request):
     except:
         print('no post available')
         workout = 6
-
+    print('workout number is ' + str(workout))
     template = loader.get_template('scoring/index.html')
     #TODO: accept workout arguments
     #DDDataImport.importDDTeams()
     #DDDataImport.importDDData()
+    listOfWorkouts = Workout.objects.filter(event = 1)
+    #print(listOfWorkouts[1].id)
     listOfScores = totals.getSingleWorkoutTotal(workout,1)
 
-    context = {'scores' : listOfScores}
+    context = {'scores' : listOfScores, 'workouts' : listOfWorkouts}
     return HttpResponse(template.render(context, request))
