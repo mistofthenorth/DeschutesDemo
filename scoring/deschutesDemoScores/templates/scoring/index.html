@@ -28,7 +28,11 @@
     <input type="radio" name="workout" id="choice" value="{{workout.id}}">
     <label for="choice">{{workout.description}}</label><br>
      {% endfor %}
-
+              <select id = "division" name="division">
+                     {% for division in divisions %}
+               <option value = {{division.id}}>{{division.description}}</option>
+                     {% endfor %}
+              </select>
     <input type="submit" value="Choose Workout">
 </form>
 </div>
@@ -36,10 +40,10 @@
 <table class="table">
 <th>Rank</th>
 <th>reps</th>
-<th>division</th>
 <th>minutes</th>
 <th>seconds</th>
 <th>workout id</th>
+<th>division</th>
 <th>team id</th>
 
 {% for score in scores %}
@@ -47,10 +51,10 @@
 <td>
 {{score.rank}}</td><td>
 {{score.score.reps}}</td><td>
-{{score.score.team.division}}</td><td>
 {{score.score.minutes}}</td><td>
 {{score.score.seconds}}</td><td>
 {{score.score.workout.description}}</td><td>
+{{score.score.team.division}}</td><td>
 {{score.score.team_id}}</td>
 </tr>
 {% endfor %}
