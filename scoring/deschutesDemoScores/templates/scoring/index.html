@@ -39,20 +39,20 @@
 
 <table class="table">
 <th>Rank</th>
-<th>reps</th>
-<th>minutes</th>
-<th>seconds</th>
-<th>workout id</th>
+{% if scoringStyle != 'W' %} <th>reps</th> {% endif %}
+{% if scoringStyle == 'T' %} <th>minutes</th> {% endif %}
+{% if scoringStyle == 'T' %} <th>seconds</th> {% endif %}
+<th>workout</th>
 <th>division</th>
-<th>team id</th>
+<th>team</th>
 
 {% for score in scores %}
 <tr>
 <td>
 {{score.rank}}</td><td>
-{{score.score.reps}}</td><td>
-{{score.score.minutes}}</td><td>
-{{score.score.seconds}}</td><td>
+{% if scoringStyle != 'W' %} {{score.score.reps}}</td><td> {% endif %}
+{% if scoringStyle == 'T' %}  {{score.score.minutes}}</td><td> {% endif %}
+{% if scoringStyle == 'T' %} {{score.score.seconds}}</td><td> {% endif %}
 {{score.score.workout.description}}</td><td>
 {{score.score.team.division}}</td><td>
 {{score.score.team_id}}</td>
