@@ -75,6 +75,15 @@ def getSingleWorkoutTotal(workout, division):
 
 	return listOfScores
 
+def getAllWorkoutsTotal(division):
+	setOfWorkouts = Workout.objects.filter(event = 1)
+	#print(setOfWorkouts)
+	listOfWorkoutScores = []
+	for workout in setOfWorkouts:
+		print(workout.id)
+		listOfWorkoutScores.append(getSingleWorkoutTotal(workout.id,division))
+	return listOfWorkoutScores
+
 class orderedScore:
 
 	def __init__(self, score, rank):
