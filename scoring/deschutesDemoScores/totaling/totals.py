@@ -82,10 +82,32 @@ def getAllWorkoutsTotal(division):
 	for workout in setOfWorkouts:
 		print(workout.id)
 		listOfWorkoutScores.append(getSingleWorkoutTotal(workout.id,division))
-	return listOfWorkoutScores
+	totalScores = {}
+	for workout in listOfWorkoutScores:
+		for score in workout:
+			print(str(score.rank) + ' ' + str(score.score.team.teamID))
+			if score.score.team.teamID in totalScores:
+				totalScores[score.score.team.teamID] = totalScores[score.score.team.teamID] + score.rank
+			else:
+				totalScores[score.score.team.teamID] = score.rank
+	#totalScores = sorted(totalScores.values())
+	listOfTotalScores = []
+	for total in totalScores:
+		print(total)
+		print(totalScores[total])
+		listOfTotalScores.append(totalScore(totalScores[total],total))
+	print(listOfTotalScores)
+	#listOfTotalScores.sort(key=score)
+	#TODO: handle ties
+
+	return listOfTotalScores
 
 class orderedScore:
-
 	def __init__(self, score, rank):
 		self.score = score
 		self.rank = rank
+
+class totalScore:
+	def __init__(self, score, team):
+		self.score = score
+		self.team = team
