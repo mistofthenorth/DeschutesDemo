@@ -98,9 +98,24 @@ def getAllWorkoutsTotal(division):
 		listOfTotalScores.append(totalScore(totalScores[total],total))
 	print(listOfTotalScores)
 	#listOfTotalScores.sort(key=score)
-	#TODO: handle ties
-
-	return listOfTotalScores
+	sortedListOfTotalScores = sorted(listOfTotalScores, key=lambda x:(x.score))
+	rank = 1
+	for score in sortedListOfTotalScores:
+		#print(score.team + ' ' + str(score.score))
+		score.rank = rank
+		rank += 1
+	i = 0
+	for score in sortedListOfTotalScores:
+		isTie = False
+		if i > 1:
+			if sortedListOfTotalScores[i].score == sortedListOfTotalScores[i-1].score:
+				isTie = True
+		if isTie:
+			sortedListOfTotalScores[i].rank = sortedListOfTotalScores[i-1].rank
+		i += 1
+	for score in sortedListOfTotalScores:
+		print(str(score.rank) + ' ' + score.team + ' ' + str(score.score))
+	return sortedListOfTotalScores
 
 class orderedScore:
 	def __init__(self, score, rank):
@@ -111,3 +126,4 @@ class totalScore:
 	def __init__(self, score, team):
 		self.score = score
 		self.team = team
+		self.rank = 0
