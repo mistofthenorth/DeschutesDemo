@@ -115,7 +115,7 @@ def getAllWorkoutsTotal(division):
 		i += 1
 	for score in sortedListOfTotalScores:
 		print(str(score.rank) + ' ' + score.team + ' ' + str(score.score))
-	return sortedListOfTotalScores
+	return (sortedListOfTotalScores, listOfWorkoutScores)
 
 class orderedScore:
 	def __init__(self, score, rank):
