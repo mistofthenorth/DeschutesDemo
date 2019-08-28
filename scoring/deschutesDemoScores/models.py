@@ -16,6 +16,7 @@ class Workout(models.Model):
 		choices=scoringStyleChoices,
 		default='T')
 	event = models.ForeignKey(Event, on_delete=models.CASCADE)
+	includeInFinalResults = models.BooleanField(default=True)
 	def __str__(self):
 		return self.description
 

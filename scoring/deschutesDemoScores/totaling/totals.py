@@ -13,7 +13,7 @@ def getSingleWorkoutTotal(workout, division):
 	elif workoutProperties.scoringStyle == 'W':
 		setOfScores = sorted(setOfScores, key=lambda x: (-int(x.weight or 0)))
 	else:
-		setOfScores = []
+		pass
 
 	listOfScores = []
 	for (rank, score) in enumerate(setOfScores):
@@ -28,10 +28,10 @@ def getSingleWorkoutTotal(workout, division):
 			if listOfScores[i].score.minutes == listOfScores[i-1].score.minutes and listOfScores[i].score.seconds == listOfScores[i-1].score.seconds and listOfScores[i].score.reps == listOfScores[i-1].score.reps:
 				isTie = True
 		elif workoutProperties.scoringStyle == 'R':
-			if listOfScores[i].score.reps == listOfScores[i-1].score.reps:
+			if listOfScores[i].score.reps == listOfScores[i-1].score.reps and (listOfScores[i].score.minutes or 0) == (listOfScores[i-1].score.minutes or 0) and (listOfScores[i].score.seconds or 0) == (listOfScores[i-1].score.seconds or 0):
 				isTie = True
 		elif workoutProperties.scoringStyle == 'W':
-			if listOfScores[i].score.weight == listOfScores[i-1].score.weight:
+			if listOfScores[i].score.weight == listOfScores[i-1].score.weight and (listOfScores[i].score.minutes or 0) == (listOfScores[i-1].score.minutes or 0) and (listOfScores[i].score.seconds or 0) == (listOfScores[i-1].score.seconds or 0):
 				isTie = True
 		else:
 			isTie = False
@@ -47,7 +47,8 @@ def getAllWorkoutsTotal(division):
 
 	listOfWorkoutScores = []
 	for workout in setOfWorkouts:
-		listOfWorkoutScores.append(getSingleWorkoutTotal(workout.id,division))
+		if workout.includeInFinalResults:
+			listOfWorkoutScores.append(getSingleWorkoutTotal(workout.id,division))
 
 	totalScores = {}
 	for workout in listOfWorkoutScores:
