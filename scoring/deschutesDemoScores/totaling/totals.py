@@ -16,8 +16,8 @@ def getSingleWorkoutTotal(workout, division):
 		pass
 
 	listOfScores = []
-	for (rank, score) in enumerate(setOfScores):
-		recordedScore = orderedScore(score, rank + 1)
+	for (rank, score) in enumerate(setOfScores, 1):
+		recordedScore = orderedScore(score, rank)
 		listOfScores.append(recordedScore)
 
 	for (i, score) in enumerate(listOfScores):
@@ -64,8 +64,8 @@ def getAllWorkoutsTotal(division):
 
 	sortedListOfTotalScores = sorted(listOfTotalScores, key=lambda x:(x.score))
 
-	for (rank,score) in enumerate(sortedListOfTotalScores):
-		score.rank = rank + 1
+	for (rank,score) in enumerate(sortedListOfTotalScores, 1):
+		score.rank = rank
 
 	for (i, score) in enumerate(sortedListOfTotalScores):
 		if i == 0: continue
