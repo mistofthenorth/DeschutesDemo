@@ -1,9 +1,10 @@
 from django.db import models
-from deschutesDemoScores.models import Score, Workout, Team
+from deschutesDemoScores.models import Score, Workout, Team, Event
 
 def getSingleWorkoutTotal(workout, division):
 
 	workoutProperties = Workout.objects.get(id = workout)
+	setOfTeams = Team.objects.filter(division = division)
 	setOfScores = Score.objects.filter(workout = workoutProperties.id, team__division = division)
 
 	if workoutProperties.scoringStyle == 'T':
@@ -15,10 +16,27 @@ def getSingleWorkoutTotal(workout, division):
 	else:
 		pass
 
+	#print(len(setOfTeams))
+	#print(len(setOfScores))
+
+	L = [x.teamID for x in setOfTeams]
+	print(L)
+	M = [x.team.teamID for x in setOfScores]
+	print(M)
+	N = set(L) - set(M)
+	print(N)
+	if len(setOfTeams) != len(setOfScores):
+		print('Mismatch between number of teams and scores')
+
 	listOfScores = []
 	for (rank, score) in enumerate(setOfScores, 1):
 		recordedScore = orderedScore(score, rank)
 		listOfScores.append(recordedScore)
+
+	#for (rank, team) in enumerate(N, (listOfScores[-1].rank + 1)):
+	#	dummyScore = Score.objects.get_or_create(weight = 0, minutes = 0, seconds = 0, reps = 0, team=Team.objects.get(pk=team), workout=Workout.objects.get(pk=workout), event=Event.objects.get(pk=1))
+	#	recordedScore = orderedScore(dummyScore, rank)
+	#	listOfScores.append(recordedScore)
 
 	for (i, score) in enumerate(listOfScores):
 		isTie = False

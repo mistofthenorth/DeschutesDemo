@@ -27,7 +27,7 @@ def index(request):
     scoringStyle = Workout.objects.get(pk=workout)
     #print(scoringStyle.scoringStyle)
     #
-    allWorkouts = totals.getAllWorkoutsTotal(1)
+    #allWorkouts = totals.getAllWorkoutsTotal(1)
     #print(listOfWorkouts[0][0].rank)
     #
     context = {'scores' : listOfScores, 'workouts' : listOfWorkouts, 'divisions' : listOfDivisions, 'scoringStyle' : scoringStyle.scoringStyle}
