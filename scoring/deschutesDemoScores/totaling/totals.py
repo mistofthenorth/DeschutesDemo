@@ -8,48 +8,40 @@ def getSingleWorkoutTotal(workout, division):
 	setOfScores = Score.objects.filter(workout = workoutProperties.id, team__division = division)
 
 	if workoutProperties.scoringStyle == 'T':
-		setOfScores = sorted(setOfScores, key=lambda x: (x.minutes, x.seconds, -int(x.reps or 0)))
+		setOfScores = sorted(setOfScores, key=lambda x: ((x.minutes or float('inf')), (x.seconds or float('inf')), -int(x.reps or 0)))
 	elif workoutProperties.scoringStyle == 'R':
 		setOfScores = sorted(setOfScores, key=lambda x: (-int(x.reps or 0)))
 	elif workoutProperties.scoringStyle == 'W':
 		setOfScores = sorted(setOfScores, key=lambda x: (-int(x.weight or 0)))
 	else:
 		pass
+	#Add blank entries for teams that have no scores on this workout
+	teamIDList = [x.teamID for x in setOfTeams]
+	scoreTeamIDList = [x.team.teamID for x in setOfScores]
+	missingTeamsList = set(teamIDList) - set(scoreTeamIDList)
 
-	#print(len(setOfTeams))
-	#print(len(setOfScores))
-
-	L = [x.teamID for x in setOfTeams]
-	print(L)
-	M = [x.team.teamID for x in setOfScores]
-	print(M)
-	N = set(L) - set(M)
-	print(N)
-	if len(setOfTeams) != len(setOfScores):
-		print('Mismatch between number of teams and scores')
+	for team in missingTeamsList:
+		(blankScore, created) = Score.objects.get_or_create(weight = None, minutes = None, seconds = None, reps = None, team=Team.objects.get(pk=team), workout=Workout.objects.get(pk=workout), event=Event.objects.get(pk=1))
+		setOfScores.append(blankScore)
 
 	listOfScores = []
 	for (rank, score) in enumerate(setOfScores, 1):
 		recordedScore = orderedScore(score, rank)
 		listOfScores.append(recordedScore)
 
-	#for (rank, team) in enumerate(N, (listOfScores[-1].rank + 1)):
-	#	dummyScore = Score.objects.get_or_create(weight = 0, minutes = 0, seconds = 0, reps = 0, team=Team.objects.get(pk=team), workout=Workout.objects.get(pk=workout), event=Event.objects.get(pk=1))
-	#	recordedScore = orderedScore(dummyScore, rank)
-	#	listOfScores.append(recordedScore)
-
 	for (i, score) in enumerate(listOfScores):
 		isTie = False
 		if i == 0: continue # Don't run this check on the first item since no tie is possible with previous score
-
+		#print(listOfScores[i].score.team)
+		#print(listOfScores[i].score.minutes) 
 		if workoutProperties.scoringStyle == 'T':
-			if listOfScores[i].score.minutes == listOfScores[i-1].score.minutes and listOfScores[i].score.seconds == listOfScores[i-1].score.seconds and listOfScores[i].score.reps == listOfScores[i-1].score.reps:
+			if (listOfScores[i].score.minutes or float('inf')) == (listOfScores[i-1].score.minutes or float('inf')) and (listOfScores[i].score.seconds or float('inf')) == (listOfScores[i-1].score.seconds or float('inf')) and (listOfScores[i].score.reps or 0) == (listOfScores[i-1].score.reps or 0):
 				isTie = True
 		elif workoutProperties.scoringStyle == 'R':
-			if listOfScores[i].score.reps == listOfScores[i-1].score.reps and (listOfScores[i].score.minutes or 0) == (listOfScores[i-1].score.minutes or 0) and (listOfScores[i].score.seconds or 0) == (listOfScores[i-1].score.seconds or 0):
+			if (listOfScores[i].score.reps or 0) == (listOfScores[i-1].score.reps or 0) and (listOfScores[i].score.minutes or 0) == (listOfScores[i-1].score.minutes or 0) and (listOfScores[i].score.seconds or 0) == (listOfScores[i-1].score.seconds or 0):
 				isTie = True
 		elif workoutProperties.scoringStyle == 'W':
-			if listOfScores[i].score.weight == listOfScores[i-1].score.weight and (listOfScores[i].score.minutes or 0) == (listOfScores[i-1].score.minutes or 0) and (listOfScores[i].score.seconds or 0) == (listOfScores[i-1].score.seconds or 0):
+			if (listOfScores[i].score.weight or 0) == (listOfScores[i-1].score.weight or 0) and (listOfScores[i].score.minutes or 0) == (listOfScores[i-1].score.minutes or 0) and (listOfScores[i].score.seconds or 0) == (listOfScores[i-1].score.seconds or 0):
 				isTie = True
 		else:
 			isTie = False
@@ -91,8 +83,8 @@ def getAllWorkoutsTotal(division):
 		if sortedListOfTotalScores[i].score == sortedListOfTotalScores[i-1].score:
 			sortedListOfTotalScores[i].rank = sortedListOfTotalScores[i-1].rank
 
-	for score in sortedListOfTotalScores:
-		print(str(score.rank) + ' ' + score.team + ' ' + str(score.score))
+	#for score in sortedListOfTotalScores:
+		#print(str(score.rank) + ' ' + score.team + ' ' + str(score.score))
 
 	return (sortedListOfTotalScores, listOfWorkoutScores)
 

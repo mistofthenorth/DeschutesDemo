@@ -44,8 +44,8 @@ def finalResults(request):
         division = 1
     listOfDivisions = Division.objects.filter(event = 1)
     allWorkouts = totals.getAllWorkoutsTotal(division)
-    print(allWorkouts[1])
-    print(allWorkouts[0][0].rank)
+    #print(allWorkouts[1])
+    #print(allWorkouts[0][0].rank)
     template = loader.get_template('scoring/finalResults.html')
     context = {'divisions' : listOfDivisions, 'allWorkouts' : allWorkouts[0], 'workoutScores' : allWorkouts[1]}
     return HttpResponse(template.render(context, request))
