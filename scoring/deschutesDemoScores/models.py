@@ -20,6 +20,7 @@ class Workout(models.Model):
 	def __str__(self):
 		return self.description
 
+
 class Division(models.Model):
 	description = models.CharField(max_length=100)
 	event = models.ForeignKey(Event, on_delete=models.CASCADE)
@@ -51,4 +52,5 @@ class Score(models.Model):
 	event = models.ForeignKey(Event, on_delete=models.CASCADE)
 	def __str__(self):
 		return str(self.team.description) + ' ' + str(self.workout.description)
-    
+	class Meta:
+		unique_together = ('team', 'workout', 'event')
