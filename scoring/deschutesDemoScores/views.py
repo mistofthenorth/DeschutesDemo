@@ -49,3 +49,19 @@ def finalResults(request):
     template = loader.get_template('scoring/finalResults.html')
     context = {'divisions' : listOfDivisions, 'allWorkouts' : allWorkouts[0], 'workoutScores' : allWorkouts[1]}
     return HttpResponse(template.render(context, request))
+
+def scoreInput(request):
+    try:
+        #print(request.POST['workout'])
+        #print(request.POST['division'])
+        workout = request.POST['workout']
+        division = request.POST['division']
+    except:
+        #print('no post available')
+        workout = 6
+        division = 1
+    setOfTeams = Team.objects.filter(division = division)
+
+    template = loader.get_template('scoring/scoreInput.html')
+    context = {'setOfTeams' : setOfTeams}
+    return HttpResponse(template.render(context, request))
