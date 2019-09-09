@@ -20,8 +20,23 @@
   </div>
 </div>
 
-
+<table class="table">
+<th>Team Name</th>
+<th>Minutes</th>
+<th>Seconds</th>
+<th>Weight</th>
+<th>Reps</th>
 {% for team in setOfTeams %}
-<p>{{team.teamID}}
+<tr>
+<td> {{team.teamID}} </td>
+<td> 10 </td>
+<td> 15 </td>
+<td> 20 </td>
+<td> 25 </td>
+</tr>
 {% endfor %}
 
+
+
+
+</table>
