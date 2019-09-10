@@ -19,24 +19,41 @@
   <img src="{% static "scoring/dd-header.gif" %}" width="1600" height="200"/>
   </div>
 </div>
+<form>
 
-<table class="table">
-<th>Team Name</th>
-<th>Minutes</th>
-<th>Seconds</th>
-<th>Weight</th>
-<th>Reps</th>
+
+
 {% for team in setOfTeams %}
-<tr>
-<td> {{team.teamID}} </td>
-<td> 10 </td>
-<td> 15 </td>
-<td> 20 </td>
-<td> 25 </td>
-</tr>
+
+  <div class="form-row">
+    
+   
+    <div class="col-1">
+       {{team.teamID}}
+    </div>
+
+    <div class="col">
+ 
+      <input type="text" class="form-control" placeholder="Minutes">
+    </div>
+    <div class="col">
+
+      <input type="text" class="form-control" placeholder="Seconds">
+    </div>
+    <div class="col">
+
+      <input type="text" class="form-control" placeholder="Reps">
+    </div>
+    <div class="col">
+
+      <input type="text" class="form-control" placeholder="Weight">
+    </div>
+  </div>
+<hr>
 {% endfor %}
 
 
 
+  <button class="btn btn-primary" type="submit">Submit form</button>
 
-</table>
+</form>
