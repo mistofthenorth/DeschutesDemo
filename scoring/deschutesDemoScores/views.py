@@ -61,7 +61,14 @@ def scoreInput(request):
         workout = 6
         division = 1
     setOfTeams = Team.objects.filter(division = division)
-
+    listOfScores = totals.getSingleWorkoutTotal(workout,division)
+    sortedListOfScores = sorted(listOfScores, key=lambda x: (x.score.team_id))
     template = loader.get_template('scoring/scoreInput.html')
-    context = {'setOfTeams' : setOfTeams}
+    context = {'setOfTeams' : setOfTeams, 'scores' : sortedListOfScores}
+    return HttpResponse(template.render(context, request))
+
+def scoreInputReceived(request):
+    print(request.POST)
+    template = loader.get_template('scoring/scoreInputReceived.html')
+    context = {}
     return HttpResponse(template.render(context, request))
