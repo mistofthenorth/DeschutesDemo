@@ -69,6 +69,9 @@ def scoreInput(request):
 
 def scoreInputReceived(request):
     print(request.POST)
+    listOfTeams = request.POST['team']
+    #for i in request.POST:
+    #    print(i)
     template = loader.get_template('scoring/scoreInputReceived.html')
     context = {}
     return HttpResponse(template.render(context, request))
