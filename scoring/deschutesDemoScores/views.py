@@ -22,7 +22,7 @@ def index(request):
     listOfScores = totals.getSingleWorkoutTotal(workout,division)
     scoringStyle = Workout.objects.get(pk=workout)
     #
-    context = {'scores' : listOfScores, 'workouts' : listOfWorkouts, 'divisions' : listOfDivisions, 'scoringStyle' : scoringStyle.scoringStyle}
+    context = {'scores' : listOfScores, 'workouts' : listOfWorkouts, 'divisions' : listOfDivisions, 'scoringStyle' : scoringStyle.scoringStyle, 'currentDivision' : division, 'currentWorkout' : workout}
     return HttpResponse(template.render(context, request))
 
 

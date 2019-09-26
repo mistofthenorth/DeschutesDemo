@@ -21,6 +21,7 @@
 </div>
 
 
+
 <div align='center'>
 <form action="" method="post">
 	  {% csrf_token %}
@@ -35,6 +36,19 @@
               </select>
     <input type="submit" value="Choose Workout">
 </form>
+
+
+<form method="post" action="scoreInput" class="inline">
+   {% csrf_token %}
+  <input type="hidden" name="division" value="{{currentDivision}}">
+  <input type="hidden" name="workout" value="{{currentWorkout}}">
+
+  <input type="submit" name="submit_param" value="Edit Scores" class="link-button">
+    
+  </input>
+</form>
+
+
 </div>
 
 <table class="table">
