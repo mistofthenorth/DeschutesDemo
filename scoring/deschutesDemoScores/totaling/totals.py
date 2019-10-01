@@ -60,17 +60,23 @@ def getAllWorkoutsTotal(division):
 		if workout.includeInFinalResults:
 			listOfWorkoutScores.append(getSingleWorkoutTotal(workout.id,division))
 
+	allEventScores = {}
 	totalScores = {}
 	for workout in listOfWorkoutScores:
 		for score in workout:
 			if score.score.team.teamID in totalScores:
 				totalScores[score.score.team.teamID] = totalScores[score.score.team.teamID] + score.rank
+				allEventScores[score.score.team.teamID].append(score)
+				#print(allEventScores[score.score.team.teamID])
 			else:
 				totalScores[score.score.team.teamID] = score.rank
+				allEventScores[score.score.team.teamID] = [score]
+				#print(allEventScores[score.score.team.teamID])
+
 
 	listOfTotalScores = []
 	for total in totalScores:
-		listOfTotalScores.append(totalScore(totalScores[total],total))
+		listOfTotalScores.append(totalScore(totalScores[total],total,allEventScores[total]))
 
 	sortedListOfTotalScores = sorted(listOfTotalScores, key=lambda x:(x.score))
 
@@ -94,7 +100,8 @@ class orderedScore:
 		self.rank = rank
 
 class totalScore:
-	def __init__(self, score, team):
+	def __init__(self, score, team, eventScores):
 		self.score = score
 		self.team = team
 		self.rank = 0
+		self.eventScores = eventScores
