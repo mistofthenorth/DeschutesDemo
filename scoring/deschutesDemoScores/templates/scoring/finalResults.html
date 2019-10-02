@@ -29,18 +29,16 @@
                <option value = {{division.id}}>{{division.description}}</option>
                      {% endfor %}
               </select>
-    <input type="submit" value="Choose Workout">
+    <input type="submit" value="Choose Division">
 </form>
 </div>
 
 
 <table class="table">
 <th>Team</th>
-<th>1</th>
-<th>2</th>
-<th>3</th>
-<th>4</th>
-<th>5</th>
+{% for workout in workouts %}
+<th>{{workout.description}}</th>
+{% endfor %}
 <th>Total</th>
 <th>Rank</th>
 {% for score in allWorkouts %}

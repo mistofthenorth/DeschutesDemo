@@ -33,9 +33,10 @@ def finalResults(request):
         division = 1
 
     listOfDivisions = Division.objects.filter(event = 1)
+    listOfWorkouts = Workout.objects.filter(event = 1)
     allWorkouts = totals.getAllWorkoutsTotal(division)
     template = loader.get_template('scoring/finalResults.html')
-    context = {'divisions' : listOfDivisions, 'allWorkouts' : allWorkouts[0], 'workoutScores' : allWorkouts[1]}
+    context = {'divisions' : listOfDivisions, 'allWorkouts' : allWorkouts, 'workouts' : listOfWorkouts}
     return HttpResponse(template.render(context, request))
 
 def scoreInput(request):
