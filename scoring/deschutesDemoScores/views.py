@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.template import loader
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
 from .models import Team, Score, Workout, Division, Event
 from .totaling import totals
 from .importing import DDDataImport
@@ -39,6 +40,7 @@ def finalResults(request):
     context = {'divisions' : listOfDivisions, 'allWorkouts' : allWorkouts, 'workouts' : listOfWorkouts}
     return HttpResponse(template.render(context, request))
 
+@login_required
 def scoreInput(request):
     try:
         workout = request.POST['workout']
