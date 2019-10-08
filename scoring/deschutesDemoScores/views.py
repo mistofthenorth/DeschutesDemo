@@ -33,11 +33,13 @@ def finalResults(request):
     except:
         division = 1
 
+    currentDivision = Division.objects.get(pk=division)
+    currentDivisionDescription = currentDivision.description
     listOfDivisions = Division.objects.filter(event = 1)
     listOfWorkouts = Workout.objects.filter(event = 1)
     allWorkouts = totals.getAllWorkoutsTotal(division)
     template = loader.get_template('scoring/finalResults.html')
-    context = {'divisions' : listOfDivisions, 'allWorkouts' : allWorkouts, 'workouts' : listOfWorkouts}
+    context = {'divisions' : listOfDivisions, 'allWorkouts' : allWorkouts, 'workouts' : listOfWorkouts, 'currentDivision' : currentDivisionDescription}
     return HttpResponse(template.render(context, request))
 
 @login_required
