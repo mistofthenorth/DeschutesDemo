@@ -18,9 +18,9 @@ def getSingleWorkoutTotal(workout, division):
     else:
         pass
     # Add blank entries for teams that have no scores on this workout
-    teamIDList = [x.teamID for x in setOfTeams]
-    scoreTeamIDList = [x.team.teamID for x in setOfScores]
-    missingTeamsList = set(teamIDList) - set(scoreTeamIDList)
+    teamList = [x.team for x in setOfTeams]
+    scoreTeamList = [x.team.team for x in setOfScores]
+    missingTeamsList = set(teamList) - set(scoreTeamList)
 
     for team in missingTeamsList:
         (blankScore, created) = Score.objects.get_or_create(weight=None, minutes=None, seconds=None, reps=None,
@@ -68,10 +68,10 @@ def getAllWorkoutsTotal(division):
     allEventScores = {}
     for workout in listOfWorkoutScores:
         for score in workout:
-            if score.score.team.teamID in allEventScores:
-                allEventScores[score.score.team.teamID].append(score)
+            if score.score.team.team in allEventScores:
+                allEventScores[score.score.team.team].append(score)
             else:
-                allEventScores[score.score.team.teamID] = [score]
+                allEventScores[score.score.team.team] = [score]
 
     listOfTotalScores = []
     for total in allEventScores:

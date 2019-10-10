@@ -15,8 +15,8 @@ def index(request):
         workout = 6
         division = 1
     template = loader.get_template('scoring/index.html')
-    # DDDataImport.importDDTeams()
-    # DDDataImport.importDDData()
+    #DDDataImport.importDDTeams()
+    #DDDataImport.importDDData()
     listOfWorkouts = Workout.objects.filter(event=1)
     listOfDivisions = Division.objects.filter(event=1)
     listOfScores = totals.getSingleWorkoutTotal(workout, division)
