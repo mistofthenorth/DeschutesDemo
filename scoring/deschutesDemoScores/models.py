@@ -10,6 +10,7 @@ class Event(models.Model):
 
 class Workout(models.Model):
     description = models.CharField(max_length=100)
+    description_extended = models.TextField(null=True)
     scoringStyleChoices = (
         ('W', 'weight'),
         ('R', 'reps'),
