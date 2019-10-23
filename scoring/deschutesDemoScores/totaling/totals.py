@@ -29,7 +29,7 @@ def getSingleWorkoutTotal(workout, division):
 
     listOfScores = []
     for (rank, score) in enumerate(setOfScores, 1):
-        recordedScore = orderedScore(score, rank)
+        recordedScore = rankedScore(score, rank)
         listOfScores.append(recordedScore)
 
     for (i, score) in enumerate(listOfScores):
@@ -73,33 +73,33 @@ def getAllWorkoutsTotal(division):
             else:
                 allEventScores[score.score.team.team] = [score]
 
-    listOfTotalScores = []
+    listOfFinalResults = []
     for total in allEventScores:
-        listOfTotalScores.append(totalScore(total, allEventScores[total]))
+        listOfFinalResults.append(finalResult(total, allEventScores[total]))
 
-    sortedListOfTotalScores = sorted(
-        listOfTotalScores, key=lambda x: (x.score))
+    sortedlistOfFinalResults = sorted(
+        listOfFinalResults, key=lambda x: (x.score))
 
-    for (rank, score) in enumerate(sortedListOfTotalScores, 1):
+    for (rank, score) in enumerate(sortedlistOfFinalResults, 1):
         score.rank = rank
 
-    for (i, score) in enumerate(sortedListOfTotalScores):
+    for (i, score) in enumerate(sortedlistOfFinalResults):
         if i == 0:
             continue
 
-        if sortedListOfTotalScores[i].score == sortedListOfTotalScores[i - 1].score:
-            sortedListOfTotalScores[i].rank = sortedListOfTotalScores[i - 1].rank
+        if sortedlistOfFinalResults[i].score == sortedlistOfFinalResults[i - 1].score:
+            sortedlistOfFinalResults[i].rank = sortedlistOfFinalResults[i - 1].rank
 
-    return sortedListOfTotalScores
+    return sortedlistOfFinalResults
 
 
-class orderedScore:
+class rankedScore:
     def __init__(self, score, rank):
         self.score = score
         self.rank = rank
 
 
-class totalScore:
+class finalResult:
     def __init__(self, team, eventScores):
         self.team = team
         self.rank = 0
