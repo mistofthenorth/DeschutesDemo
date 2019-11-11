@@ -20,18 +20,16 @@
   </div>
 </div>
 
-
-
 <div align='center'>
 <form action="" method="post">
 	  {% csrf_token %}
     {% for workout in workouts %}
-    <input type="radio" name="workout" id="choice" value="{{workout.id}}">
+    <input type="radio" name="workout" id="choice" value="{{workout.id}}"  {% if workout.id == currentWorkout %} checked = "" {% endif %}>
     <label for="choice">{{workout.description}}</label><br>
      {% endfor %}
               <select id = "division" name="division">
                      {% for division in divisions %}
-               <option value = {{division.id}}>{{division.description}}</option>
+               <option value = {{division.id}} {% if division.id == currentDivision %} selected {% endif %}>{{division.description}}</option>
                      {% endfor %}
               </select>
     <input type="submit" value="Choose Workout">

@@ -17,13 +17,15 @@ def index(request):
     template = loader.get_template('scoring/index.html')
     #DDDataImport.importDDTeams()
     #DDDataImport.importDDData()
+    print(workout)
+    print(division)
     listOfWorkouts = Workout.objects.filter(event=1)
     listOfDivisions = Division.objects.filter(event=1)
     listOfScores = totals.getSingleWorkoutTotal(workout, division)
     scoringStyle = Workout.objects.get(pk=workout)
     #
     context = {'scores': listOfScores, 'workouts': listOfWorkouts, 'divisions': listOfDivisions,
-               'scoringStyle': scoringStyle.scoringStyle, 'currentDivision': division, 'currentWorkout': workout}
+               'scoringStyle': scoringStyle.scoringStyle, 'currentDivision': int(division), 'currentWorkout': int(workout)}
     return HttpResponse(template.render(context, request))
 
 
