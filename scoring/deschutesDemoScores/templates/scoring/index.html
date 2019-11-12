@@ -19,42 +19,46 @@
   <img src="{% static "scoring/dd-header.gif" %}" width="1600" height="200"/>
   </div>
 </div>
+<div class="container">
+  <div class="row">
+    <div class="col">
+    <form action="" method="post">
+    	  {% csrf_token %}
+        {% for workout in workouts %}
+        <input type="radio" name="workout" id="choice" value="{{workout.id}}"  {% if workout.id == currentWorkout %} checked = "" {% endif %}>
+        <label for="choice">{{workout.description}}</label><br>
+         {% endfor %}
+                  <select id = "division" name="division">
+                         {% for division in divisions %}
+                   <option value = {{division.id}} {% if division.id == currentDivision %} selected {% endif %}>{{division.description}}</option>
+                         {% endfor %}
+                  </select>
+                  <br>
+        <input type="submit" value="Choose Workout">
+    </form>
+      <form method="post" action="scoreInput" class="inline">
+       {% csrf_token %}
+        <input type="hidden" name="division" value="{{currentDivision}}">
+        <input type="hidden" name="workout" value="{{currentWorkout}}">
 
-<div align='center'>
-<form action="" method="post">
-	  {% csrf_token %}
-    {% for workout in workouts %}
-    <input type="radio" name="workout" id="choice" value="{{workout.id}}"  {% if workout.id == currentWorkout %} checked = "" {% endif %}>
-    <label for="choice">{{workout.description}}</label><br>
-     {% endfor %}
-              <select id = "division" name="division">
-                     {% for division in divisions %}
-               <option value = {{division.id}} {% if division.id == currentDivision %} selected {% endif %}>{{division.description}}</option>
-                     {% endfor %}
-              </select>
-    <input type="submit" value="Choose Workout">
-</form>
+        <input type="submit" name="submit_param" value="Edit Scores" class="link-button">
+          
+        </input>
+      </form>
 
-
-<form method="post" action="scoreInput" class="inline">
-   {% csrf_token %}
-  <input type="hidden" name="division" value="{{currentDivision}}">
-  <input type="hidden" name="workout" value="{{currentWorkout}}">
-
-  <input type="submit" name="submit_param" value="Edit Scores" class="link-button">
-    
-  </input>
-</form>
-
-<form method="post" action="finalResults" class="inline">
-   {% csrf_token %}
-  <input type="hidden" name="division" value="{{currentDivision}}">
-  <input type="hidden" name="workout" value="{{currentWorkout}}">
-  <input type="submit" name="submit_param" value="Final Results" class="link-button">
-    
-  </input>
-</form>
-
+      <form method="post" action="finalResults" class="inline">
+         {% csrf_token %}
+        <input type="hidden" name="division" value="{{currentDivision}}">
+        <input type="hidden" name="workout" value="{{currentWorkout}}">
+        <input type="submit" name="submit_param" value="Final Results" class="link-button">
+          
+        </input>
+      </form>
+    </div>
+    <div class=col>
+      {{workoutDescription|safe}}
+    </div>
+  </div>
 </div>
 
 <table class="table">
