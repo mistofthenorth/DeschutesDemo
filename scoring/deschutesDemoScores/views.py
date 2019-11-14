@@ -81,10 +81,26 @@ def scoreInputReceived(request):
     for (i, teamScore) in enumerate(listOfTeams):
         score = Score.objects.get(
             team=listOfTeams[i], workout=workout, event=1)
-        score.weight = listOfWeight[i]
-        score.reps = listOfReps[i]
-        score.minutes = listOfMinutes[i]
-        score.seconds = listOfSeconds[i]
+        try:
+            score.weight = int(listOfWeight[i])
+        except ValueError:
+            message = 'Value for weight of team ' + listOfTeams[i] + ' is not a number. Null used instead'
+            print(message)
+        try:
+            score.reps = int(listOfReps[i])
+        except ValueError:
+            message = 'Value for reps of team ' + listOfTeams[i] + ' is not a number. Null used instead'
+            print(message)
+        try:
+            score.minutes = int(listOfMinutes[i])
+        except ValueError:
+            message = 'Value for minutes of team ' + listOfTeams[i] + ' is not a number. Null used instead'
+            print(message)
+        try:
+            score.seconds = int(listOfSeconds[i])
+        except ValueError:
+            message = 'Value for weight of team ' + listOfTeams[i] + ' is not a number. Null used instead'
+            print(message)
         try:
             score.save()
             listOfSaveResults.append('Updated score for team ' + listOfTeams[i] + ' to ' + str(score.minutes) + ' minutes, ' + str(
